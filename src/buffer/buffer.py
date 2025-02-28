@@ -9,5 +9,8 @@ class Buffer:
         if text not in self.texts:
             self.texts.append(text)
 
+    def remove_text(self, number: int):
+        self.texts.pop(number - 1)
+
     def empty_buffer(self) -> None:
         self.texts.clear()
