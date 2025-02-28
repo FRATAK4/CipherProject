@@ -1,3 +1,5 @@
+import json
+
 from src.text import Text
 from typing import Dict
 
@@ -10,7 +12,8 @@ class FileHandler:
         self.path = name
 
     def create_file(self) -> None:
-        pass
+        with open(self.path, "w") as json_file:
+            json.dump([], json_file, indent=4)
 
     def delete_file(self) -> None:
         pass
