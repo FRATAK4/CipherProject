@@ -1,4 +1,5 @@
 import json
+import os
 
 from src.text import Text
 from typing import Dict
@@ -16,7 +17,7 @@ class FileHandler:
             json.dump([], json_file, indent=4)
 
     def delete_file(self) -> None:
-        pass
+        os.remove(self.path)
 
     def save(self, texts: list[Text]) -> None:
         pass
