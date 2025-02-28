@@ -10,7 +10,7 @@ class FileHandler:
         self.path = ""
 
     def set_path(self, name: str) -> None:
-        self.path = name
+        self.path = f"../files_for_texts/{name}.json"
 
     def create_file(self) -> None:
         with open(self.path, "w") as json_file:
