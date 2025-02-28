@@ -5,11 +5,11 @@ class Buffer:
     def __init__(self) -> None:
         self.texts: list[Text] = []
 
-    def add_text(self, text) -> None:
+    def add_text(self, text: Text) -> None:
         if text not in self.texts:
             self.texts.append(text)
 
-    def remove_text(self, number: int):
+    def remove_text(self, number: int) -> None:
         self.texts.pop(number - 1)
 
     def empty_buffer(self) -> None:
