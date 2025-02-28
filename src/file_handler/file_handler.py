@@ -30,4 +30,5 @@ class FileHandler:
             json.dump(data, json_file, indent=4)
 
     def load(self) -> list[Dict[str, str]]:
-        pass
+        with open(self.path, "r") as json_file:
+            return json.load(json_file)
