@@ -7,7 +7,7 @@ class FileHandler:
         self.path = ""
 
     def set_path(self, name: str) -> None:
-        pass
+        self.path = name
 
     def create_file(self) -> None:
         pass
