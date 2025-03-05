@@ -61,7 +61,7 @@ class Manager:
         self.buffer.remove_text(user_input)
 
     def _empty_your_texts(self):
-        pass
+        self.buffer.empty_buffer()
 
     def _encrypt_decrypt_text(self):
         user_input = int(input("Enter a number of word you want to change status of: "))
