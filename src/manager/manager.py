@@ -98,7 +98,9 @@ class Manager:
 
     def _delete_file(self):
         user_input = int(input("Enter a number of file you want to delete: "))
-        print(user_input)
+        self.file_handler.set_path(files_list[user_input - 1])
+        self.file_handler.delete_file()
+        files_list.pop(user_input - 1)
 
     def _exit(self):
         pass
