@@ -43,7 +43,7 @@ class Manager:
         text, rot_type, functionality = user_input.split()
         text_object = None
 
-        cipher_factory = self.factories_dict.get(rot_type)
+        cipher_factory = self.factories_dict.get(rot_type)()
         cipher = cipher_factory.create_cipher()
 
         match functionality:
@@ -67,7 +67,7 @@ class Manager:
         user_input = int(input("Enter a number of word you want to change status of: "))
         text_object = self.buffer.texts[user_input - 1]
 
-        cipher_factory = self.factories_dict.get(text_object.rot_type)
+        cipher_factory = self.factories_dict.get(text_object.rot_type)()
         cipher = cipher_factory.create_cipher()
 
         match text_object.status:
