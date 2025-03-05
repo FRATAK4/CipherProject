@@ -94,6 +94,7 @@ class Manager:
         user_input = input("Enter a name of file: ")
         self.file_handler.set_path(user_input)
         self.file_handler.create_file()
+        files_list.append(user_input)
 
     def _delete_file(self):
         user_input = int(input("Enter a number of file you want to delete: "))
