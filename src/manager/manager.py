@@ -2,6 +2,7 @@ from src.buffer import Buffer
 from src.file_handler import FileHandler
 from src.menu import MainMenu
 from src.rot import Rot13Factory, Rot47Factory
+from src.text import Text
 
 
 class Manager:
@@ -39,7 +40,21 @@ class Manager:
         user_input = input(
             "Enter a text (format: 'text' 'rot13/rot47' 'encrypt/decrypt'): "
         )
-        print(user_input)
+        text, rot_type, functionality = user_input.split()
+        text_object = None
+
+        cipher_factory = self.factories_dict.get(rot_type)
+        cipher = cipher_factory.create_cipher()
+
+        match functionality:
+            case "encrypt":
+                text_object = Text(text, rot_type, "decrypted")
+                cipher.encrypt(text_object)
+            case "decrypt":
+                text_object = Text(text, rot_type, "encrypted")
+                cipher.decrypt(text_object)
+
+        self.buffer.add_texts([text_object])
 
     def _remove_text(self):
         user_input = int(input("Enter a number of word: "))
