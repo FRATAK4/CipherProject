@@ -1,6 +1,8 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 class SubMenu(ABC):
-    def get_input(self):
-        raise NotImplementedError
+    @staticmethod
+    @abstractmethod
+    def get_input():
+        pass

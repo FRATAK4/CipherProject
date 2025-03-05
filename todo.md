@@ -2,25 +2,25 @@
 
 1. ROT13, ROT47 (SZYFR CEZARA) -> [https://pl.wikipedia.org/wiki/Szyfr_Cezara](https://pl.wikipedia.org/wiki/Szyfr_Cezara)
 2. Funkcjonalności
-    - FileHandler odczyt, zapis do pliku, user podaje nazwe, obsługa wyjątków, Gdy chce zapisać do tego samego pliku to append(dodanie do pliku), - Ja polecam rozszerzenie JSON
+    - FileHandler odczyt, zapis do pliku, user podaje nazwe, obsługa wyjątków, Gdy chce zapisać do tego samego pliku to append(dodanie do pliku), - Ja polecam rozszerzenie JSON - OK
     - Szyfrowanie i Odszyfrowywanie.
-    - Buffer czyli taka lista, która sobie istnieje podczas działania programu, Trzyma zaszyfrowane, odszyfrowane wczytane z pliku, z niego zapisujemy do pliku.
-    - Menu
+    - Buffer czyli taka lista, która sobie istnieje podczas działania programu, Trzyma zaszyfrowane, odszyfrowane wczytane z pliku, z niego zapisujemy do pliku. - OK
+    - Menu - OK
     - Uruchamianie wybranych funkcji w managerze mozna rozwiązac za pomocą Dict'a lub structural pattern matching [https://peps.python.org/pep-0636/]  (Na pewno nie przy użyciu if / elif itd...)
     - Manager
     - run/main.py # zeby dalo sie uruchomic plik za pomoca python run.py / python main.py
     - Exit
-    - Wzorzec projektowy: Facade
+    - Wzorzec projektowy: Facade - OK
     - Testy Jednostkowe (Na końcu)
 3. Funkcjonalności (Ogólne)
     - README do projektu. (Na końcu)
 
 ### Struktura Obiekt
-- Obiekt Text zaszyfrowany/odszyfrowany to dataclasss. -<
+- Obiekt Text zaszyfrowany/odszyfrowany to dataclasss.
 - {"text"": xyz, "rot_type": rot13/rot47, "status": encrypted/decrypted}
 
 1. Dodatkowe rzeczy:
-    - Wzorzec Projektowy - FactoryMethod/AbstractFactory
+    - Wzorzec Projektowy - FactoryMethod/AbstractFactory - OK
 
 2. Stylistyka
     - PEP 8
@@ -60,3 +60,9 @@
    - Pre-commit (black, flake8) odpala lintery i formatery przy commicie (dokładnie przed)
    - ew. CI na GithubActions*
    - + Ew. Poetry.
+
+directory for files path in CONST
+dokonczyc managera - funkcje w dictcie od kazdego wyboru
+obsluga wyjatkow
+szyfrowanie
+testy przypomniec sobie i robic

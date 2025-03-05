@@ -6,6 +6,7 @@ from .main_menu import MainMenu
 from .new_text_menu import NewTextMenu
 from .remove_text_menu import RemoveTextMenu
 from .save_texts_menu import SaveTextsMenu
+from .sub_menu import SubMenu
 
 __all__ = [
     "CreateFileMenu",
@@ -16,4 +17,5 @@ __all__ = [
     "NewTextMenu",
     "RemoveTextMenu",
     "SaveTextsMenu",
+    "SubMenu",
 ]

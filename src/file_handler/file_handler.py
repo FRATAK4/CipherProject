@@ -2,7 +2,6 @@ import json
 import os
 
 from src.text import Text
-from typing import Dict
 
 
 class FileHandler:
@@ -29,6 +28,6 @@ class FileHandler:
         with open(self.path, "w") as json_file:
             json.dump(data, json_file, indent=4)
 
-    def load(self) -> list[Dict[str, str]]:
+    def load(self) -> list[dict[str, str]]:
         with open(self.path, "r") as json_file:
             return json.load(json_file)

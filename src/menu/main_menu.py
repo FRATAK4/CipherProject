@@ -2,20 +2,22 @@ import os
 
 from src.buffer import Buffer
 
+DIRECTORY_PATH = "../files_for_texts"
+
 
 class MainMenu:
-    def show_menu(self, buffer: Buffer) -> None:
+    @staticmethod
+    def show_menu(buffer: Buffer) -> None:
         print("CipherMenu")
-        print("==============================")
+        print("==============================")  # int * "="
         print("Files:")
-        directory_path = "../files_for_texts"
-        files = os.listdir(directory_path)
-        for i, file in enumerate(files, 1):
-            print(f"{i}. {file}")
+        files = os.listdir(DIRECTORY_PATH)
+        for no, file in enumerate(files, start=1):
+            print(f"{no}. {file}")
         print("---------------------------------------------")
         print("Your texts:")
-        for i, text in enumerate(buffer.texts, 1):
-            print(f"{i}. {text.text}: {text.status} with {text.rot_type}")
+        for no, text in enumerate(buffer.texts, start=1):
+            print(f"{no}. {text}")
         print("==============================")
         print("What do you want to do?")
         print("1. Add new text")
@@ -28,6 +30,7 @@ class MainMenu:
         print("8. Delete file")
         print("9. EXIT")
 
-    def get_input(self) -> int:
+    @staticmethod
+    def get_input() -> int:
         user_input = int(input("\nEnter a number of option: "))
         return user_input
