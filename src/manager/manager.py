@@ -58,7 +58,7 @@ class Manager:
 
     def _remove_text(self):
         user_input = int(input("Enter a number of word: "))
-        print(user_input)
+        self.buffer.remove_text(user_input)
 
     def _empty_your_texts(self):
         pass
