@@ -1,6 +1,9 @@
 from src.buffer import Buffer
 from src.file_handler import FileHandler
+from src.file_handler.globals import files_list
 from src.menu import MainMenu
+from src.rot import Rot13Factory, Rot47Factory
+from src.text import Text
 
 
 class Manager:
@@ -9,7 +12,11 @@ class Manager:
         self.buffer = buffer
         self.running = True
 
+        self._initialize_factories_dict()
         self._initialize_functions_dict()
+
+    def _initialize_factories_dict(self):
+        self.factories_dict = {"rot13": Rot13Factory, "rot47": Rot47Factory}
 
     def _initialize_functions_dict(self):
         self.functions_dict = {
@@ -31,28 +38,69 @@ class Manager:
             self.functions_dict.get(user_input)()
 
     def _add_new_text(self):
-        pass
+        user_input = input(
+            "Enter a text (format: 'text' 'rot13/rot47' 'encrypt/decrypt'): "
+        )
+        text, rot_type, functionality = user_input.split()
+        text_object = None
+
+        cipher_factory = self.factories_dict.get(rot_type)()
+        cipher = cipher_factory.create_cipher()
+
+        match functionality:
+            case "encrypt":
+                text_object = Text(text, rot_type, "decrypted")
+                cipher.encrypt(text_object)
+            case "decrypt":
+                text_object = Text(text, rot_type, "encrypted")
+                cipher.decrypt(text_object)
+
+        self.buffer.add_texts([text_object])
 
     def _remove_text(self):
-        pass
+        user_input = int(input("Enter a number of word: "))
+        self.buffer.remove_text(user_input)
 
     def _empty_your_texts(self):
-        pass
+        self.buffer.empty_buffer()
 
     def _encrypt_decrypt_text(self):
-        pass
+        user_input = int(input("Enter a number of word you want to change status of: "))
+        text_object = self.buffer.texts[user_input - 1]
+
+        cipher_factory = self.factories_dict.get(text_object.rot_type)()
+        cipher = cipher_factory.create_cipher()
+
+        match text_object.status:
+            case "encrypted":
+                cipher.decrypt(text_object)
+            case "decrypted":
+                cipher.encrypt(text_object)
 
     def _save_texts_to_file(self):
-        pass
+        user_input = int(
+            input("Enter a number of file you want to save your texts to: ")
+        )
+        self.file_handler.set_path(files_list[user_input - 1])
+        self.file_handler.save(self.buffer.texts)
 
     def _load_texts_from_file(self):
-        pass
+        user_input = int(input("Enter a number of file you want to load texts from: "))
+        self.file_handler.set_path(files_list[user_input - 1])
+        texts = [Text(**line) for line in self.file_handler.load()]
+        self.buffer.add_texts(texts)
 
     def _create_file(self):
-        pass
+        user_input = input("Enter a name of file: ")
+        self.file_handler.set_path(user_input)
+        self.file_handler.create_file()
+        files_list.append(user_input)
 
     def _delete_file(self):
-        pass
+        user_input = int(input("Enter a number of file you want to delete: "))
+        self.file_handler.set_path(files_list[user_input - 1])
+        self.file_handler.delete_file()
+        files_list.pop(user_input - 1)
 
     def _exit(self):
-        pass
+        self.running = False
