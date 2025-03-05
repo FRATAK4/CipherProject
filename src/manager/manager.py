@@ -86,7 +86,9 @@ class Manager:
 
     def _load_texts_from_file(self):
         user_input = int(input("Enter a number of file you want to load texts from: "))
-        print(user_input)
+        self.file_handler.set_path(files_list[user_input - 1])
+        texts = [Text(**line) for line in self.file_handler.load()]
+        self.buffer.add_texts(texts)
 
     def _create_file(self):
         user_input = input("Enter a name of file: ")
