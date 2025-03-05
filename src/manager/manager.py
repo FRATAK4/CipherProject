@@ -31,28 +31,39 @@ class Manager:
             self.functions_dict.get(user_input)()
 
     def _add_new_text(self):
-        pass
+        user_input = input(
+            "Enter a text (format: 'text' 'rot13/rot47' 'encrypt/decrypt'): "
+        )
+        print(user_input)
 
     def _remove_text(self):
-        pass
+        user_input = int(input("Enter a number of word: "))
+        print(user_input)
 
     def _empty_your_texts(self):
         pass
 
     def _encrypt_decrypt_text(self):
-        pass
+        user_input = int(input("Enter a number of word you want to change status of: "))
+        print(user_input)
 
     def _save_texts_to_file(self):
-        pass
+        user_input = int(
+            input("Enter a number of file you want to save your texts to: ")
+        )
+        print(user_input)
 
     def _load_texts_from_file(self):
-        pass
+        user_input = int(input("Enter a number of file you want to load texts from: "))
+        print(user_input)
 
     def _create_file(self):
-        pass
+        user_input = input("Enter a name of file: ")
+        print(user_input)
 
     def _delete_file(self):
-        pass
+        user_input = int(input("Enter a number of file you want to delete: "))
+        print(user_input)
 
     def _exit(self):
         pass
