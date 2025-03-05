@@ -103,4 +103,4 @@ class Manager:
         files_list.pop(user_input - 1)
 
     def _exit(self):
-        pass
+        self.running = False
