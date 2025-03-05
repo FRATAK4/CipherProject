@@ -1,6 +1,7 @@
 from src.buffer import Buffer
 from src.file_handler import FileHandler
 from src.menu import MainMenu
+from src.rot import Rot13Factory, Rot47Factory
 
 
 class Manager:
@@ -9,7 +10,11 @@ class Manager:
         self.buffer = buffer
         self.running = True
 
+        self._initialize_factories_dict()
         self._initialize_functions_dict()
+
+    def _initialize_factories_dict(self):
+        self.factories_dict = {"rot13": Rot13Factory, "rot47": Rot47Factory}
 
     def _initialize_functions_dict(self):
         self.functions_dict = {
