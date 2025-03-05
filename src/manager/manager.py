@@ -65,7 +65,16 @@ class Manager:
 
     def _encrypt_decrypt_text(self):
         user_input = int(input("Enter a number of word you want to change status of: "))
-        print(user_input)
+        text_object = self.buffer.texts[user_input - 1]
+
+        cipher_factory = self.factories_dict.get(text_object.rot_type)
+        cipher = cipher_factory.create_cipher()
+
+        match text_object.status:
+            case "encrypted":
+                cipher.decrypt(text_object)
+            case "decrypted":
+                cipher.encrypt(text_object)
 
     def _save_texts_to_file(self):
         user_input = int(
