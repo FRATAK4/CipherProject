@@ -1,5 +1,6 @@
 from src.buffer import Buffer
 from src.file_handler import FileHandler
+from src.file_handler.globals import files_list
 from src.menu import MainMenu
 from src.rot import Rot13Factory, Rot47Factory
 from src.text import Text
@@ -80,7 +81,8 @@ class Manager:
         user_input = int(
             input("Enter a number of file you want to save your texts to: ")
         )
-        print(user_input)
+        self.file_handler.set_path(files_list[user_input - 1])
+        self.file_handler.save(self.buffer.texts)
 
     def _load_texts_from_file(self):
         user_input = int(input("Enter a number of file you want to load texts from: "))
