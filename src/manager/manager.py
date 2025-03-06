@@ -34,8 +34,17 @@ class Manager:
     def run(self) -> None:
         while self.running:
             MainMenu.show_menu(self.buffer)
-            user_input = MainMenu.get_input()
-            self.functions_dict.get(user_input)()
+            try:
+                user_input = MainMenu.get_input()
+                self.functions_dict.get(user_input)()
+            except ValueError:
+                print("Invalid input value!")
+            except TypeError:
+                print("This is not a number!")
+            except IndexError:
+                print("Given number is out of range!")
+            except FileExistsError:
+                print("File with this name already exists!")
 
     def _add_new_text(self) -> None:
         user_input = input(
