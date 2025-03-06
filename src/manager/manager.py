@@ -48,7 +48,7 @@ class Manager:
             "decrypt",
         ]:
             raise ValueError
-        elif rot_type == "rot13":
+        if rot_type == "rot13":
             for char in text:
                 if ord(char) not in range(65, 91) and ord(char) not in range(97, 123):
                     raise ValueError
