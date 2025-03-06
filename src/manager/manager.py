@@ -127,6 +127,12 @@ class Manager:
 
     def _create_file(self) -> None:
         user_input = input("Enter a name of file: ")
+
+        if user_input in files_list:
+            raise FileExistsError
+        if user_input == "":
+            raise ValueError
+
         self.file_handler.set_path(user_input)
         self.file_handler.create_file()
         files_list.append(user_input)
