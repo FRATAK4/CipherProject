@@ -33,8 +33,6 @@ class MainMenu:
     def get_input() -> int:
         user_input = int(input("\nEnter a number of option: "))
 
-        if type(user_input) is not int:
-            raise TypeError
         if user_input not in range(1, 10):
             raise IndexError
 
