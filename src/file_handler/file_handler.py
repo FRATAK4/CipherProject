@@ -24,7 +24,10 @@ class FileHandler:
             load_texts = json.load(json_file)
 
         texts_as_dicts = [text.__dict__ for text in texts]
-        data = list(set(load_texts).union(set(texts_as_dicts)))
+        data = []
+        for text in load_texts + texts_as_dicts:
+            if text not in data:
+                data.append(text)
 
         with open(self.path, "w") as json_file:
             json.dump(data, json_file, indent=4)
