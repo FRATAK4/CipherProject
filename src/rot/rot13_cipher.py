@@ -6,9 +6,9 @@ class Rot13Cipher(RotCipher):
     def encrypt(self, text: Text) -> None:
         encrypted_text = ""
         for char in text.text:
-            if char.islower():
+            if char.isupper():
                 encrypted_char = chr(65 + (ord(char) - 65 + 13) % 26)
-            elif char.isupper():
+            elif char.islower():
                 encrypted_char = chr(97 + (ord(char) - 97 + 13) % 26)
             else:
                 encrypted_char = ""
@@ -20,9 +20,9 @@ class Rot13Cipher(RotCipher):
     def decrypt(self, text: Text) -> None:
         decrypted_text = ""
         for char in text.text:
-            if char.islower():
+            if char.isupper():
                 decrypted_char = chr(65 + (ord(char) - 65 - 13) % 26)
-            elif char.isupper():
+            elif char.islower():
                 decrypted_char = chr(97 + (ord(char) - 97 - 13) % 26)
             else:
                 decrypted_char = ""
