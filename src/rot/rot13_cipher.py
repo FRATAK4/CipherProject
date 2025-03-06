@@ -3,8 +3,24 @@ from src.text import Text
 
 
 class Rot13Cipher(RotCipher):
-    def encrypt(self, text: Text) -> Text:
-        pass
+    def encrypt(self, text: Text) -> None:
+        encrypted_text = ""
+        for char in text.text:
+            if char.islower():
+                encrypted_char = chr(65 + (ord(char) - 65 + 13) % 26)
+            elif char.isupper():
+                encrypted_char = chr(97 + (ord(char) - 97 + 13) % 26)
+            else:
+                encrypted_char = ""
+            encrypted_text += encrypted_char
 
-    def decrypt(self, text: Text) -> Text:
-        pass
+    def decrypt(self, text: Text) -> None:
+        encrypted_text = ""
+        for char in text.text:
+            if char.islower():
+                encrypted_char = chr(65 + (ord(char) - 65 - 13) % 26)
+            elif char.isupper():
+                encrypted_char = chr(97 + (ord(char) - 97 - 13) % 26)
+            else:
+                encrypted_char = ""
+            encrypted_text += encrypted_char
