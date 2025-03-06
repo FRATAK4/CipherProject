@@ -83,6 +83,12 @@ class Manager:
 
     def _encrypt_decrypt_text(self) -> None:
         user_input = int(input("Enter a number of word you want to change status of: "))
+
+        if type(user_input) is not int:
+            raise TypeError
+        if user_input not in range(1, len(self.buffer.texts) + 1):
+            raise IndexError
+
         text_object = self.buffer.texts[user_input - 1]
 
         cipher_factory = self.factories_dict.get(text_object.rot_type)()
