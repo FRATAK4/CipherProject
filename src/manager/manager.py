@@ -139,6 +139,12 @@ class Manager:
 
     def _delete_file(self) -> None:
         user_input = int(input("Enter a number of file you want to delete: "))
+
+        if type(user_input) is not int:
+            raise TypeError
+        if user_input not in range(1, len(files_list) + 1):
+            raise IndexError
+
         self.file_handler.set_path(files_list[user_input - 1])
         self.file_handler.delete_file()
         files_list.pop(user_input - 1)
