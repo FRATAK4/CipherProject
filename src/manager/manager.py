@@ -42,6 +42,17 @@ class Manager:
             "Enter a text (format: 'text' 'rot13/rot47' 'encrypt/decrypt'): "
         )
         text, rot_type, functionality = user_input.split()
+
+        if rot_type not in ["rot13", "rot47"] or functionality not in [
+            "encrypt",
+            "decrypt",
+        ]:
+            raise ValueError
+        elif rot_type == "rot13":
+            for char in text:
+                if ord(char) not in range(65, 91) and ord(char) not in range(97, 123):
+                    raise ValueError
+
         text_object = None
 
         cipher_factory = self.factories_dict.get(rot_type)()
