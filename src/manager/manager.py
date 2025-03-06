@@ -39,8 +39,6 @@ class Manager:
                 self.functions_dict.get(user_input)()
             except ValueError:
                 print("Invalid input value!")
-            except TypeError:
-                print("This is not a number!")
             except IndexError:
                 print("Given number is out of range!")
             except FileExistsError:
@@ -80,8 +78,6 @@ class Manager:
     def _remove_text(self) -> None:
         user_input = int(input("Enter a number of word: "))
 
-        if type(user_input) is not int:
-            raise TypeError
         if user_input not in range(1, len(self.buffer.texts) + 1):
             raise IndexError
 
@@ -93,8 +89,6 @@ class Manager:
     def _encrypt_decrypt_text(self) -> None:
         user_input = int(input("Enter a number of word you want to change status of: "))
 
-        if type(user_input) is not int:
-            raise TypeError
         if user_input not in range(1, len(self.buffer.texts) + 1):
             raise IndexError
 
@@ -114,8 +108,6 @@ class Manager:
             input("Enter a number of file you want to save your texts to: ")
         )
 
-        if type(user_input) is not int:
-            raise TypeError
         if user_input not in range(1, len(files_list) + 1):
             raise IndexError
 
@@ -125,8 +117,6 @@ class Manager:
     def _load_texts_from_file(self) -> None:
         user_input = int(input("Enter a number of file you want to load texts from: "))
 
-        if type(user_input) is not int:
-            raise TypeError
         if user_input not in range(1, len(files_list) + 1):
             raise IndexError
 
@@ -149,8 +139,6 @@ class Manager:
     def _delete_file(self) -> None:
         user_input = int(input("Enter a number of file you want to delete: "))
 
-        if type(user_input) is not int:
-            raise TypeError
         if user_input not in range(1, len(files_list) + 1):
             raise IndexError
 
