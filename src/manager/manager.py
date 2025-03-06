@@ -70,6 +70,12 @@ class Manager:
 
     def _remove_text(self) -> None:
         user_input = int(input("Enter a number of word: "))
+
+        if type(user_input) is not int:
+            raise TypeError
+        if user_input not in range(1, len(self.buffer.texts) + 1):
+            raise IndexError
+
         self.buffer.remove_text(user_input)
 
     def _empty_your_texts(self) -> None:
