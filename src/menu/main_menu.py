@@ -1,7 +1,7 @@
 import os
 
 from src.buffer import Buffer
-from src.file_handler.consts import DIRECTORY_FOR_FILES_PATH
+from src.file_handler.globals import DIRECTORY_FOR_FILES_PATH
 
 
 class MainMenu:

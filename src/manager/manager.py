@@ -10,7 +10,7 @@ class Manager:
     def __init__(self, file_handler: FileHandler, buffer: Buffer) -> None:
         self.file_handler = file_handler
         self.buffer = buffer
-        self.running = True
+        self.running: bool = True
 
         self._initialize_factories_dict()
         self._initialize_functions_dict()
@@ -55,6 +55,7 @@ class Manager:
             "decrypt",
         ]:
             raise ValueError
+
         if rot_type == "rot13":
             for char in text:
                 if ord(char) not in range(65, 91) and ord(char) not in range(97, 123):

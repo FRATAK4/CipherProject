@@ -25,12 +25,8 @@ class TestBuffer:
         buffer.add_texts(sample_texts)
 
         assert len(buffer.texts) == 2
-        assert buffer.texts[0] == Text(
-            text="hello1", rot_type="rot13", status="encoded"
-        )
-        assert buffer.texts[1] == Text(
-            text="hello2", rot_type="rot47", status="decoded"
-        )
+        assert buffer.texts[0] == sample_texts[0]
+        assert buffer.texts[1] == sample_texts[1]
 
     def test_should_not_add_same_text_to_buffer(self, buffer, sample_texts):
         buffer.add_texts(sample_texts)
