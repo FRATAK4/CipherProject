@@ -29,7 +29,7 @@ jobs:
     - name: Lint with safety
       run: |
         safety checkout
-      continue_on_error: true
+      continue-on-error: true
     - name: Lint with bandit
       run: |
         bandit -c bandit.yaml src
