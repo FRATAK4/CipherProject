@@ -8,7 +8,7 @@ from src.menu import MainMenu
 
 
 @pytest.fixture
-def mock_buffer():
+def buffer():
     buffer = Buffer()
     buffer.add_texts(
         [
@@ -20,13 +20,13 @@ def mock_buffer():
 
 
 class TestMainMenu:
-    def test_show_menu(self, mock_buffer):
+    def test_show_menu(self, buffer):
         mock_files = ["file1.json", "file2.json"]
 
         with patch("builtins.print") as mock_print, patch(
             "os.listdir", return_value=mock_files
         ):
-            MainMenu.show_menu(mock_buffer)
+            MainMenu.show_menu(buffer)
 
             mock_print.assert_any_call("1. hello1: encoded with rot13")
             mock_print.assert_any_call("2. hello2: decoded with rot47")
