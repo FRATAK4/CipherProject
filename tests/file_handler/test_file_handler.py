@@ -29,3 +29,10 @@ class TestFileHandler:
             with open("file.json", "r") as file:
                 assert json.load(file) == []
             os.remove("file.json")
+
+    def test_delete_file(self, mock_file_handler_instance):
+        with open("file.json", "w") as file:
+            json.dump([], file)
+        mock_file_handler_instance.path = "file.json"
+        mock_file_handler_instance.delete_file()
+        assert not os.path.exists("file.json")
