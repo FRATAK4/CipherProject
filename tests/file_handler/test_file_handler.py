@@ -85,3 +85,13 @@ class TestFileHandler:
         texts = [Text(**line) for line in texts]
         assert texts == mock_text_objects3
         os.remove("file.json")
+
+    def test_load(self, mock_file_handler_instance, mock_text_objects1):
+        texts_as_dicts = [text.__dict__ for text in mock_text_objects1]
+        with open("file.json", "w") as file:
+            json.dump(texts_as_dicts, file)
+        mock_file_handler_instance.path = "file.json"
+        texts = mock_file_handler_instance.load()
+        texts = [Text(**line) for line in texts]
+        assert texts == mock_text_objects1
+        os.remove("file.json")
