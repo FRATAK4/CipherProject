@@ -23,6 +23,16 @@ def buffer_instance():
     return Buffer()
 
 
+@pytest.fixture
+def example_texts():
+    return [
+        Text(text="djreg", rot_type="rot13", status="encrypted"),
+        Text(text="lhvbc", rot_type="rot13", status="decrypted"),
+        Text(text="2D578", rot_type="rot47", status="encrypted"),
+        Text(text="9;<=", rot_type="rot47", status="decrypted"),
+    ]
+
+
 def run_simulation(manager_instance, main_menu_inputs, sub_menu_inputs):
     with (
         patch("src.menu.main_menu.MainMenu.show_menu"),
@@ -82,13 +92,8 @@ class TestManager:
         assert captured.count("Invalid input value!") == len(add_new_text_inputs)
         assert manager_instance.buffer.texts == []
 
-    def test_run_remove_text_valid_inputs(self, manager_instance):
-        manager_instance.buffer.texts = [
-            Text(text="djreg", rot_type="rot13", status="encrypted"),
-            Text(text="lhvbc", rot_type="rot13", status="decrypted"),
-            Text(text="2D578", rot_type="rot47", status="encrypted"),
-            Text(text="9;<=", rot_type="rot47", status="decrypted"),
-        ]
+    def test_run_remove_text_valid_inputs(self, manager_instance, example_texts):
+        manager_instance.buffer.texts = example_texts
 
         main_menu_inputs = [2, 2, 9]
         remove_text_inputs = [1, 2]
@@ -99,3 +104,22 @@ class TestManager:
             Text(text="lhvbc", rot_type="rot13", status="decrypted"),
             Text(text="9;<=", rot_type="rot47", status="decrypted"),
         ]
+
+    def test_run_remove_text_invalid_inputs(
+        self, manager_instance, example_texts, capsys
+    ):
+        manager_instance.buffer.texts = example_texts
+
+        main_menu_inputs = [2, 2, 2, 9]
+        remove_text_inputs = [0, 10, "abc"]
+
+        run_simulation(manager_instance, main_menu_inputs, remove_text_inputs)
+
+        captured = capsys.readouterr().out
+
+        assert captured == (
+            "Given number is out of range!\n"
+            "Given number is out of range!\n"
+            "Invalid input value!\n"
+        )
+        assert manager_instance.buffer.texts == example_texts
