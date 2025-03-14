@@ -268,3 +268,17 @@ class TestManager:
             mock_create_file.assert_called_once()
 
         assert files_list == ["file1", "file2", "file3", "file4", "file5"]
+
+    def test_run_create_file_invalid_inputs(self, manager_instance, capsys):
+        main_menu_inputs = [7, 7, 9]
+        create_file_inputs = ["file3", ""]
+        files_list = ["file1", "file2", "file3", "file4"]
+
+        with patch("src.file_handler.globals.files_list", files_list):
+            run_simulation(manager_instance, main_menu_inputs, create_file_inputs)
+
+        captured = capsys.readouterr().out
+
+        assert captured == (
+            "File with this name already exists!\n" "Invalid input value!\n"
+        )
