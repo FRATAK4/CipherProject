@@ -228,3 +228,21 @@ class TestManager:
             mock_load.assert_called_once()
 
         assert manager_instance.buffer.texts == example_texts
+
+    def test_load_texts_from_file_invalid_inputs(self, manager_instance, capsys):
+        main_menu_inputs = [6, 6, 6, 9]
+        load_texts_from_file_inputs = [0, 10, "abc"]
+        files_list = ["file1", "file2", "file3", "file4"]
+
+        with patch("src.file_handler.globals.files_list", files_list):
+            run_simulation(
+                manager_instance, main_menu_inputs, load_texts_from_file_inputs
+            )
+
+        captured = capsys.readouterr().out
+
+        assert captured == (
+            "Given number is out of range!\n"
+            "Given number is out of range!\n"
+            "Invalid input value!\n"
+        )
