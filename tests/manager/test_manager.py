@@ -23,6 +23,15 @@ def buffer_instance():
     return Buffer()
 
 
+def run_simulation(manager_instance, main_menu_inputs, add_new_text_inputs):
+    with (
+        patch("src.menu.main_menu.MainMenu.show_menu"),
+        patch("src.menu.main_menu.MainMenu.get_input", side_effect=main_menu_inputs),
+        patch("builtins.input", side_effect=add_new_text_inputs),
+    ):
+        manager_instance.run()
+
+
 class TestManager:
     def test_initialization(
         self, manager_instance, file_handler_instance, buffer_instance
@@ -48,14 +57,7 @@ class TestManager:
             "yuiop rot13 decrypt",
         ]
 
-        with (
-            patch("src.menu.main_menu.MainMenu.show_menu"),
-            patch(
-                "src.menu.main_menu.MainMenu.get_input", side_effect=main_menu_inputs
-            ),
-            patch("builtins.input", side_effect=add_new_text_inputs),
-        ):
-            manager_instance.run()
+        run_simulation(manager_instance, main_menu_inputs, add_new_text_inputs)
 
         assert manager_instance.buffer.texts == [
             Text(text="djreg", rot_type="rot13", status="encrypted"),
