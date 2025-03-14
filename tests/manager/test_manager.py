@@ -150,3 +150,22 @@ class TestManager:
             Text(text="2D578", rot_type="rot47", status="encrypted"),
             Text(text="hjkl", rot_type="rot47", status="encrypted"),
         ]
+
+    def test_run_encrypt_decrypt_text_invalid_inputs(
+        self, manager_instance, example_texts, capsys
+    ):
+        manager_instance.buffer.texts = example_texts
+
+        main_menu_inputs = [4, 4, 4, 9]
+        remove_text_inputs = [0, 10, "abc"]
+
+        run_simulation(manager_instance, main_menu_inputs, remove_text_inputs)
+
+        captured = capsys.readouterr().out
+
+        assert captured == (
+            "Given number is out of range!\n"
+            "Given number is out of range!\n"
+            "Invalid input value!\n"
+        )
+        assert manager_instance.buffer.texts == example_texts
