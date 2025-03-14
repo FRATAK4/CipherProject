@@ -184,3 +184,23 @@ class TestManager:
 
             mock_set_path.assert_called_with("file3")
             mock_save.assert_called_with(manager_instance.buffer.texts)
+
+    def test_save_text_to_file_invalid_inputs(self, manager_instance, capsys):
+        main_menu_inputs = [5, 5, 5, 9]
+        save_text_to_file_inputs = [0, 10, "abc"]
+        files_list = ["file1", "file2", "file3", "file4"]
+
+        with (
+            patch.object(manager_instance.file_handler, "set_path"),
+            patch.object(manager_instance.file_handler, "save"),
+            patch("src.file_handler.globals.files_list", files_list),
+        ):
+            run_simulation(manager_instance, main_menu_inputs, save_text_to_file_inputs)
+
+        captured = capsys.readouterr().out
+
+        assert captured == (
+            "Given number is out of range!\n"
+            "Given number is out of range!\n"
+            "Invalid input value!\n"
+        )
