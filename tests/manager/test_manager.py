@@ -133,3 +133,20 @@ class TestManager:
         run_simulation(manager_instance, main_menu_inputs, remove_text_inputs)
 
         assert manager_instance.buffer.texts == []
+
+    def test_run_encrypt_decrypt_text_valid_inputs(
+        self, manager_instance, example_texts
+    ):
+        manager_instance.buffer.texts = example_texts
+
+        main_menu_inputs = [4, 4, 9]
+        encrypt_decrypt_text_inputs = [1, 4]
+
+        run_simulation(manager_instance, main_menu_inputs, encrypt_decrypt_text_inputs)
+
+        assert manager_instance.buffer.texts == [
+            Text(text="qwert", rot_type="rot13", status="decrypted"),
+            Text(text="lhvbc", rot_type="rot13", status="decrypted"),
+            Text(text="2D578", rot_type="rot47", status="encrypted"),
+            Text(text="hjkl", rot_type="rot47", status="encrypted"),
+        ]
