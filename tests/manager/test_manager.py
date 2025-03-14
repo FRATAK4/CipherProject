@@ -169,3 +169,18 @@ class TestManager:
             "Invalid input value!\n"
         )
         assert manager_instance.buffer.texts == example_texts
+
+    def test_save_text_to_file_valid_inputs(self, manager_instance):
+        main_menu_inputs = [5, 9]
+        save_text_to_file_inputs = [3]
+        files_list = ["file1", "file2", "file3", "file4"]
+
+        with (
+            patch.object(manager_instance.file_handler, "set_path") as mock_set_path,
+            patch.object(manager_instance.file_handler, "save") as mock_save,
+            patch("src.file_handler.globals.files_list", files_list),
+        ):
+            run_simulation(manager_instance, main_menu_inputs, save_text_to_file_inputs)
+
+            mock_set_path.assert_called_with("file3")
+            mock_save.assert_called_with(manager_instance.buffer.texts)
