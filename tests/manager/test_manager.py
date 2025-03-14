@@ -65,3 +65,19 @@ class TestManager:
             Text(text="2D578", rot_type="rot47", status="encrypted"),
             Text(text="9;<=", rot_type="rot47", status="decrypted"),
         ]
+
+    def test_run_add_new_text_invalid_inputs(self, manager_instance, capsys):
+        main_menu_inputs = [1, 1, 1, 1, 9]
+        add_new_text_inputs = [
+            "qwert rot15 encrypt",
+            "yuiop rot17 decrypt",
+            "asdfg rot47 encpt",
+            "hjkl rot47 decpt",
+        ]
+
+        run_simulation(manager_instance, main_menu_inputs, add_new_text_inputs)
+
+        captured = capsys.readouterr().out
+
+        assert captured.count("Invalid input value!") == 4
+        assert manager_instance.buffer.texts == []
