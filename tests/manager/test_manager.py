@@ -248,3 +248,23 @@ class TestManager:
             "Given number is out of range!\n"
             "Invalid input value!\n"
         )
+
+    def test_run_create_file_valid_inputs(self, manager_instance):
+        main_menu_inputs = [7, 9]
+        create_file_inputs = ["file5"]
+        files_list = ["file1", "file2", "file3", "file4"]
+
+        with (
+            patch.object(manager_instance.file_handler, "set_path") as mock_set_path,
+            patch.object(
+                manager_instance.file_handler,
+                "create_file",
+            ) as mock_create_file,
+            patch("src.file_handler.globals.files_list", files_list),
+        ):
+            run_simulation(manager_instance, main_menu_inputs, create_file_inputs)
+
+            mock_set_path.assert_called_with("file5")
+            mock_create_file.assert_called_once()
+
+        assert files_list == ["file1", "file2", "file3", "file4", "file5"]
