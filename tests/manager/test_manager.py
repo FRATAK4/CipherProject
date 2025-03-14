@@ -123,3 +123,13 @@ class TestManager:
             "Invalid input value!\n"
         )
         assert manager_instance.buffer.texts == example_texts
+
+    def test_run_empty_your_texts(self, manager_instance, example_texts):
+        manager_instance.buffer.texts = example_texts
+
+        main_menu_inputs = [3, 9]
+        remove_text_inputs = []
+
+        run_simulation(manager_instance, main_menu_inputs, remove_text_inputs)
+
+        assert manager_instance.buffer.texts == []
