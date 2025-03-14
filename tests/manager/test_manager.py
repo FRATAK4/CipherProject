@@ -81,3 +81,21 @@ class TestManager:
 
         assert captured.count("Invalid input value!") == len(add_new_text_inputs)
         assert manager_instance.buffer.texts == []
+
+    def test_run_remove_text_valid_inputs(self, manager_instance):
+        manager_instance.buffer.texts = [
+            Text(text="djreg", rot_type="rot13", status="encrypted"),
+            Text(text="lhvbc", rot_type="rot13", status="decrypted"),
+            Text(text="2D578", rot_type="rot47", status="encrypted"),
+            Text(text="9;<=", rot_type="rot47", status="decrypted"),
+        ]
+
+        main_menu_inputs = [2, 2, 9]
+        remove_text_inputs = [1, 2]
+
+        run_simulation(manager_instance, main_menu_inputs, remove_text_inputs)
+
+        assert manager_instance.buffer.texts == [
+            Text(text="lhvbc", rot_type="rot13", status="decrypted"),
+            Text(text="9;<=", rot_type="rot47", status="decrypted"),
+        ]
