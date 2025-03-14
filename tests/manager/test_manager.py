@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import pytest
 
 from src.buffer import Buffer
@@ -27,3 +29,10 @@ class TestManager:
         assert manager_instance.file_handler == file_handler_instance
         assert manager_instance.buffer == buffer_instance
         assert manager_instance.running
+
+    def test_run_show_menu_and_exit(self, manager_instance):
+        with patch("src.menu.main_menu.MainMenu.show_menu") as mock_show_menu:
+            with patch("src.menu.main_menu.MainMenu.get_input", return_value=9):
+                manager_instance.run()
+                mock_show_menu.assert_called_with(manager_instance.buffer)
+                assert not manager_instance.running
