@@ -23,11 +23,11 @@ def buffer_instance():
     return Buffer()
 
 
-def run_simulation(manager_instance, main_menu_inputs, add_new_text_inputs):
+def run_simulation(manager_instance, main_menu_inputs, sub_menu_inputs):
     with (
         patch("src.menu.main_menu.MainMenu.show_menu"),
         patch("src.menu.main_menu.MainMenu.get_input", side_effect=main_menu_inputs),
-        patch("builtins.input", side_effect=add_new_text_inputs),
+        patch("builtins.input", side_effect=sub_menu_inputs),
     ):
         manager_instance.run()
 
