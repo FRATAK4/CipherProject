@@ -170,7 +170,7 @@ class TestManager:
         )
         assert manager_instance.buffer.texts == example_texts
 
-    def test_save_text_to_file_valid_inputs(self, manager_instance):
+    def test_run_save_text_to_file_valid_inputs(self, manager_instance):
         main_menu_inputs = [5, 9]
         save_text_to_file_inputs = [3]
         files_list = ["file1", "file2", "file3", "file4"]
@@ -185,7 +185,7 @@ class TestManager:
             mock_set_path.assert_called_with("file3")
             mock_save.assert_called_with(manager_instance.buffer.texts)
 
-    def test_save_text_to_file_invalid_inputs(self, manager_instance, capsys):
+    def test_run_save_text_to_file_invalid_inputs(self, manager_instance, capsys):
         main_menu_inputs = [5, 5, 5, 9]
         save_text_to_file_inputs = [0, 10, "abc"]
         files_list = ["file1", "file2", "file3", "file4"]
@@ -205,7 +205,9 @@ class TestManager:
             "Invalid input value!\n"
         )
 
-    def test_load_texts_from_file_valid_inputs(self, manager_instance, example_texts):
+    def test_run_load_texts_from_file_valid_inputs(
+        self, manager_instance, example_texts
+    ):
         main_menu_inputs = [6, 9]
         load_texts_from_file_inputs = [3]
         files_list = ["file1", "file2", "file3", "file4"]
@@ -229,7 +231,7 @@ class TestManager:
 
         assert manager_instance.buffer.texts == example_texts
 
-    def test_load_texts_from_file_invalid_inputs(self, manager_instance, capsys):
+    def test_run_load_texts_from_file_invalid_inputs(self, manager_instance, capsys):
         main_menu_inputs = [6, 6, 6, 9]
         load_texts_from_file_inputs = [0, 10, "abc"]
         files_list = ["file1", "file2", "file3", "file4"]
