@@ -282,3 +282,23 @@ class TestManager:
         assert captured == (
             "File with this name already exists!\n" "Invalid input value!\n"
         )
+
+    def test_run_delete_file_valid_inputs(self, manager_instance):
+        main_menu_inputs = [8, 9]
+        create_file_inputs = [3]
+        files_list = ["file1", "file2", "file3", "file4"]
+
+        with (
+            patch.object(manager_instance.file_handler, "set_path") as mock_set_path,
+            patch.object(
+                manager_instance.file_handler,
+                "delete_file",
+            ) as mock_delete_file,
+            patch("src.file_handler.globals.files_list", files_list),
+        ):
+            run_simulation(manager_instance, main_menu_inputs, create_file_inputs)
+
+            mock_set_path.assert_called_with("file3")
+            mock_delete_file.assert_called_once()
+
+        assert files_list == ["file1", "file2", "file4"]
