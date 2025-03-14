@@ -204,3 +204,27 @@ class TestManager:
             "Given number is out of range!\n"
             "Invalid input value!\n"
         )
+
+    def test_load_texts_from_file_valid_inputs(self, manager_instance, example_texts):
+        main_menu_inputs = [6, 9]
+        load_texts_from_file_inputs = [3]
+        files_list = ["file1", "file2", "file3", "file4"]
+        example_texts_as_dicts = [text.__dict__ for text in example_texts]
+
+        with (
+            patch.object(manager_instance.file_handler, "set_path") as mock_set_path,
+            patch.object(
+                manager_instance.file_handler,
+                "load",
+                return_value=example_texts_as_dicts,
+            ) as mock_load,
+            patch("src.file_handler.globals.files_list", files_list),
+        ):
+            run_simulation(
+                manager_instance, main_menu_inputs, load_texts_from_file_inputs
+            )
+
+            mock_set_path.assert_called_with("file3")
+            mock_load.assert_called_once()
+
+        assert manager_instance.buffer.texts == example_texts
