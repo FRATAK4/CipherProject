@@ -2,10 +2,10 @@ from unittest.mock import patch
 
 import pytest
 
-from src.buffer import Buffer
-from src.file_handler import FileHandler
-from src.manager.manager import Manager
-from src.text.text import Text
+from buffer import Buffer
+from file_handler import FileHandler
+from manager.manager import Manager
+from text.text import Text
 
 
 @pytest.fixture
@@ -35,14 +35,15 @@ def example_texts():
 
 def run_simulation(manager_instance, main_menu_inputs, sub_menu_inputs):
     with (
-        patch("src.menu.main_menu.MainMenu.show_menu"),
-        patch("src.menu.main_menu.MainMenu.get_input", side_effect=main_menu_inputs),
+        patch("menu.main_menu.MainMenu.show_menu"),
+        patch("menu.main_menu.MainMenu.get_input", side_effect=main_menu_inputs),
         patch("builtins.input", side_effect=sub_menu_inputs),
     ):
         manager_instance.run()
 
 
 class TestManager:
+
     def test_initialization(
         self, manager_instance, file_handler_instance, buffer_instance
     ):
@@ -51,8 +52,8 @@ class TestManager:
         assert manager_instance.running
 
     def test_run_show_menu_and_exit(self, manager_instance):
-        with patch("src.menu.main_menu.MainMenu.show_menu") as mock_show_menu:
-            with patch("src.menu.main_menu.MainMenu.get_input", return_value=9):
+        with patch("menu.main_menu.MainMenu.show_menu") as mock_show_menu:
+            with patch("menu.main_menu.MainMenu.get_input", return_value=9):
                 manager_instance.run()
                 mock_show_menu.assert_called_with(manager_instance.buffer)
                 assert not manager_instance.running
@@ -178,7 +179,7 @@ class TestManager:
         with (
             patch.object(manager_instance.file_handler, "set_path") as mock_set_path,
             patch.object(manager_instance.file_handler, "save") as mock_save,
-            patch("src.file_handler.globals.files_list", files_list),
+            patch("file_handler.globals.files_list", files_list),
         ):
             run_simulation(manager_instance, main_menu_inputs, save_text_to_file_inputs)
 
@@ -193,7 +194,7 @@ class TestManager:
         with (
             patch.object(manager_instance.file_handler, "set_path"),
             patch.object(manager_instance.file_handler, "save"),
-            patch("src.file_handler.globals.files_list", files_list),
+            patch("file_handler.globals.files_list", files_list),
         ):
             run_simulation(manager_instance, main_menu_inputs, save_text_to_file_inputs)
 
@@ -220,7 +221,7 @@ class TestManager:
                 "load",
                 return_value=example_texts_as_dicts,
             ) as mock_load,
-            patch("src.file_handler.globals.files_list", files_list),
+            patch("file_handler.globals.files_list", files_list),
         ):
             run_simulation(
                 manager_instance, main_menu_inputs, load_texts_from_file_inputs
@@ -236,7 +237,7 @@ class TestManager:
         load_texts_from_file_inputs = [0, 10, "abc"]
         files_list = ["file1", "file2", "file3", "file4"]
 
-        with patch("src.file_handler.globals.files_list", files_list):
+        with patch("file_handler.globals.files_list", files_list):
             run_simulation(
                 manager_instance, main_menu_inputs, load_texts_from_file_inputs
             )
@@ -260,7 +261,7 @@ class TestManager:
                 manager_instance.file_handler,
                 "create_file",
             ) as mock_create_file,
-            patch("src.file_handler.globals.files_list", files_list),
+            patch("file_handler.globals.files_list", files_list),
         ):
             run_simulation(manager_instance, main_menu_inputs, create_file_inputs)
 
@@ -274,7 +275,7 @@ class TestManager:
         create_file_inputs = ["file3", ""]
         files_list = ["file1", "file2", "file3", "file4"]
 
-        with patch("src.file_handler.globals.files_list", files_list):
+        with patch("file_handler.globals.files_list", files_list):
             run_simulation(manager_instance, main_menu_inputs, create_file_inputs)
 
         captured = capsys.readouterr().out
@@ -294,7 +295,7 @@ class TestManager:
                 manager_instance.file_handler,
                 "delete_file",
             ) as mock_delete_file,
-            patch("src.file_handler.globals.files_list", files_list),
+            patch("file_handler.globals.files_list", files_list),
         ):
             run_simulation(manager_instance, main_menu_inputs, create_file_inputs)
 
@@ -308,7 +309,7 @@ class TestManager:
         delete_file_inputs = [0, 10, "abc"]
         files_list = ["file1", "file2", "file3", "file4"]
 
-        with patch("src.file_handler.globals.files_list", files_list):
+        with patch("file_handler.globals.files_list", files_list):
             run_simulation(manager_instance, main_menu_inputs, delete_file_inputs)
 
         captured = capsys.readouterr().out

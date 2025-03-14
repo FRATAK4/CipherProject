@@ -1,8 +1,8 @@
 import json
 import os
 
-import src.file_handler.consts
-from src.text import Text
+from .consts import DIRECTORY_FOR_FILES_PATH
+from text import Text
 
 
 class FileHandler:
@@ -10,7 +10,7 @@ class FileHandler:
         self.path = ""
 
     def set_path(self, name: str) -> None:
-        self.path = f"{src.file_handler.consts.DIRECTORY_FOR_FILES_PATH}/{name}.json"
+        self.path = f"{DIRECTORY_FOR_FILES_PATH}/{name}.json"
 
     def create_file(self) -> None:
         with open(self.path, "w") as json_file:

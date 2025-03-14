@@ -1,7 +1,7 @@
 import pytest
 
-from src.buffer import Buffer
-from src.text import Text
+from buffer import Buffer
+from text import Text
 
 
 @pytest.fixture

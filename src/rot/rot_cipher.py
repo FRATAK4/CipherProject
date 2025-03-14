@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.text import Text
+from text import Text
 
 
 class RotCipher(ABC):

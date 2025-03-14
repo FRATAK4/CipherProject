@@ -1,5 +1,5 @@
 from .rot_cipher import RotCipher
-from src.text import Text
+from text import Text
 
 
 class Rot13Cipher(RotCipher):

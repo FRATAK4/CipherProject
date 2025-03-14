@@ -1,6 +1,6 @@
-from src.buffer import Buffer
-from src.file_handler import FileHandler
-from src.manager.manager import Manager
+from buffer import Buffer
+from file_handler import FileHandler
+from manager.manager import Manager
 
 
 def main():

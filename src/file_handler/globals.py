@@ -1,6 +1,6 @@
 import os
 
-from src.file_handler.consts import DIRECTORY_FOR_FILES_PATH
+from .consts import DIRECTORY_FOR_FILES_PATH
 
 
 files_list = [
