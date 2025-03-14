@@ -71,7 +71,7 @@ class TestManager:
         add_new_text_inputs = [
             "qwert rot15 encrypt",
             "yuiop rot17 decrypt",
-            "asdfg rot47 encpt",
+            "jklh2436# rot13 encrypt" "asdfg rot47 encpt",
             "hjkl rot47 decpt",
         ]
 
@@ -79,5 +79,5 @@ class TestManager:
 
         captured = capsys.readouterr().out
 
-        assert captured.count("Invalid input value!") == 4
+        assert captured.count("Invalid input value!") == len(add_new_text_inputs)
         assert manager_instance.buffer.texts == []
