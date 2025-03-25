@@ -8,12 +8,6 @@ from text import Text
 class FileHandler:
     def __init__(self) -> None:
         self.path = ""
-        FileHandler._initialize_files_for_texts()
-
-    @staticmethod
-    def _initialize_files_for_texts():
-        if not os.path.exists("files_for_texts"):
-            os.mkdir("files_for_texts")
 
     def set_path(self, name: str) -> None:
         self.path = f"{DIRECTORY_FOR_FILES_PATH}/{name}.json"
