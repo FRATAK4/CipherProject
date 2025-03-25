@@ -175,4 +175,5 @@ cython_debug/
 
 
 /src/file_handler/files_for_texts/*
+!/src/file_handler/files_for_texts/.gitkeep
 todo.md
