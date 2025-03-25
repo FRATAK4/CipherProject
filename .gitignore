@@ -174,5 +174,5 @@ cython_debug/
 .pypirc
 
 
-/src/file_handler/files_for_texts/
+/src/file_handler/files_for_texts/*
 todo.md
