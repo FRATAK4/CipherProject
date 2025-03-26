@@ -24,7 +24,7 @@ class TestMainMenu:
         mock_files = ["file1.json", "file2.json"]
 
         with patch("builtins.print") as mock_print, patch(
-            "os.listdir", return_value=mock_files
+            "file_handler.FileHandler.files_list", return_value=mock_files
         ):
             MainMenu.show_menu(buffer)
 
