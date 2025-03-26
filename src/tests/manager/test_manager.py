@@ -33,16 +33,16 @@ def example_texts():
     ]
 
 
-def run_simulation(manager_instance, main_menu_inputs, sub_menu_inputs):
-    with (
-        patch("menu.main_menu.MainMenu.show_menu"),
-        patch("menu.main_menu.MainMenu.get_input", side_effect=main_menu_inputs),
-        patch("builtins.input", side_effect=sub_menu_inputs),
-    ):
-        manager_instance.run()
-
-
 class TestManager:
+    @staticmethod
+    def run_simulation(manager_instance, main_menu_inputs, sub_menu_inputs):
+        with (
+            patch("menu.main_menu.MainMenu.show_menu"),
+            patch("menu.main_menu.MainMenu.get_input", side_effect=main_menu_inputs),
+            patch("builtins.input", side_effect=sub_menu_inputs),
+        ):
+            manager_instance.run()
+
     def test_initialization(
         self, manager_instance, file_handler_instance, buffer_instance
     ):
@@ -67,7 +67,9 @@ class TestManager:
             "yuiop rot13 decrypt",
         ]
 
-        run_simulation(manager_instance, main_menu_inputs, add_new_text_inputs)
+        TestManager.run_simulation(
+            manager_instance, main_menu_inputs, add_new_text_inputs
+        )
 
         assert manager_instance.buffer.texts == [
             Text(text="djreg", rot_type="rot13", status="encrypted"),
@@ -85,7 +87,9 @@ class TestManager:
             "hjkl rot47 decpt",
         ]
 
-        run_simulation(manager_instance, main_menu_inputs, add_new_text_inputs)
+        TestManager.run_simulation(
+            manager_instance, main_menu_inputs, add_new_text_inputs
+        )
 
         captured = capsys.readouterr().out
 
@@ -98,7 +102,9 @@ class TestManager:
         main_menu_inputs = [2, 2, 9]
         remove_text_inputs = [1, 2]
 
-        run_simulation(manager_instance, main_menu_inputs, remove_text_inputs)
+        TestManager.run_simulation(
+            manager_instance, main_menu_inputs, remove_text_inputs
+        )
 
         assert manager_instance.buffer.texts == [
             Text(text="lhvbc", rot_type="rot13", status="decrypted"),
@@ -113,7 +119,9 @@ class TestManager:
         main_menu_inputs = [2, 2, 2, 9]
         remove_text_inputs = [0, 10, "abc"]
 
-        run_simulation(manager_instance, main_menu_inputs, remove_text_inputs)
+        TestManager.run_simulation(
+            manager_instance, main_menu_inputs, remove_text_inputs
+        )
 
         captured = capsys.readouterr().out
 
@@ -130,7 +138,9 @@ class TestManager:
         main_menu_inputs = [3, 9]
         remove_text_inputs = []
 
-        run_simulation(manager_instance, main_menu_inputs, remove_text_inputs)
+        TestManager.run_simulation(
+            manager_instance, main_menu_inputs, remove_text_inputs
+        )
 
         assert manager_instance.buffer.texts == []
 
@@ -142,7 +152,9 @@ class TestManager:
         main_menu_inputs = [4, 4, 9]
         encrypt_decrypt_text_inputs = [1, 4]
 
-        run_simulation(manager_instance, main_menu_inputs, encrypt_decrypt_text_inputs)
+        TestManager.run_simulation(
+            manager_instance, main_menu_inputs, encrypt_decrypt_text_inputs
+        )
 
         assert manager_instance.buffer.texts == [
             Text(text="qwert", rot_type="rot13", status="decrypted"),
@@ -159,7 +171,9 @@ class TestManager:
         main_menu_inputs = [4, 4, 4, 9]
         remove_text_inputs = [0, 10, "abc"]
 
-        run_simulation(manager_instance, main_menu_inputs, remove_text_inputs)
+        TestManager.run_simulation(
+            manager_instance, main_menu_inputs, remove_text_inputs
+        )
 
         captured = capsys.readouterr().out
 
@@ -180,7 +194,9 @@ class TestManager:
             patch.object(manager_instance.file_handler, "save") as mock_save,
             patch("file_handler.FileHandler.files_list", return_value=files_list),
         ):
-            run_simulation(manager_instance, main_menu_inputs, save_text_to_file_inputs)
+            TestManager.run_simulation(
+                manager_instance, main_menu_inputs, save_text_to_file_inputs
+            )
 
             mock_set_path.assert_called_with("file3")
             mock_save.assert_called_with(manager_instance.buffer.texts)
@@ -195,7 +211,9 @@ class TestManager:
             patch.object(manager_instance.file_handler, "save"),
             patch("file_handler.FileHandler.files_list", return_value=files_list),
         ):
-            run_simulation(manager_instance, main_menu_inputs, save_text_to_file_inputs)
+            TestManager.run_simulation(
+                manager_instance, main_menu_inputs, save_text_to_file_inputs
+            )
 
         captured = capsys.readouterr().out
 
@@ -222,7 +240,7 @@ class TestManager:
             ) as mock_load,
             patch("file_handler.FileHandler.files_list", return_value=files_list),
         ):
-            run_simulation(
+            TestManager.run_simulation(
                 manager_instance, main_menu_inputs, load_texts_from_file_inputs
             )
 
@@ -237,7 +255,7 @@ class TestManager:
         files_list = ["file1", "file2", "file3", "file4"]
 
         with patch("file_handler.FileHandler.files_list", return_value=files_list):
-            run_simulation(
+            TestManager.run_simulation(
                 manager_instance, main_menu_inputs, load_texts_from_file_inputs
             )
 
@@ -262,7 +280,9 @@ class TestManager:
             ) as mock_create_file,
             patch("file_handler.FileHandler.files_list", return_value=files_list),
         ):
-            run_simulation(manager_instance, main_menu_inputs, create_file_inputs)
+            TestManager.run_simulation(
+                manager_instance, main_menu_inputs, create_file_inputs
+            )
 
             mock_set_path.assert_called_with("file5")
             mock_create_file.assert_called_once()
@@ -275,7 +295,9 @@ class TestManager:
         files_list = ["file1", "file2", "file3", "file4"]
 
         with patch("file_handler.FileHandler.files_list", return_value=files_list):
-            run_simulation(manager_instance, main_menu_inputs, create_file_inputs)
+            TestManager.run_simulation(
+                manager_instance, main_menu_inputs, create_file_inputs
+            )
 
         captured = capsys.readouterr().out
 
@@ -296,7 +318,9 @@ class TestManager:
             ) as mock_delete_file,
             patch("file_handler.FileHandler.files_list", return_value=files_list),
         ):
-            run_simulation(manager_instance, main_menu_inputs, create_file_inputs)
+            TestManager.run_simulation(
+                manager_instance, main_menu_inputs, create_file_inputs
+            )
 
             mock_set_path.assert_called_with("file3")
             mock_delete_file.assert_called_once()
@@ -309,7 +333,9 @@ class TestManager:
         files_list = ["file1", "file2", "file3", "file4"]
 
         with patch("file_handler.FileHandler.files_list", return_value=files_list):
-            run_simulation(manager_instance, main_menu_inputs, delete_file_inputs)
+            TestManager.run_simulation(
+                manager_instance, main_menu_inputs, delete_file_inputs
+            )
 
         captured = capsys.readouterr().out
 
