@@ -1,6 +1,5 @@
 from buffer import Buffer
 from file_handler import FileHandler
-import file_handler.consts
 from menu import MainMenu
 from rot import Rot13Factory, Rot47Factory
 from text import Text
@@ -109,43 +108,43 @@ class Manager:
             input("Enter a number of file you want to save your texts to: ")
         )
 
-        if user_input not in range(1, len(file_handler.globals.files_list) + 1):
+        if user_input not in range(1, len(FileHandler.files_list()) + 1):
             raise IndexError
 
-        self.file_handler.set_path(file_handler.globals.files_list[user_input - 1])
+        self.file_handler.set_path(FileHandler.files_list()[user_input - 1])
         self.file_handler.save(self.buffer.texts)
 
     def _load_texts_from_file(self) -> None:
         user_input = int(input("Enter a number of file you want to load texts from: "))
 
-        if user_input not in range(1, len(file_handler.globals.files_list) + 1):
+        if user_input not in range(1, len(FileHandler.files_list()) + 1):
             raise IndexError
 
-        self.file_handler.set_path(file_handler.globals.files_list[user_input - 1])
+        self.file_handler.set_path(FileHandler.files_list()[user_input - 1])
         texts = [Text(**line) for line in self.file_handler.load()]
         self.buffer.add_texts(texts)
 
     def _create_file(self) -> None:
         user_input = input("Enter a name of file: ")
 
-        if user_input in file_handler.globals.files_list:
+        if user_input in FileHandler.files_list():
             raise FileExistsError
         if user_input == "":
             raise ValueError
 
         self.file_handler.set_path(user_input)
         self.file_handler.create_file()
-        file_handler.globals.files_list.append(user_input)
+        FileHandler.files_list().append(user_input)
 
     def _delete_file(self) -> None:
         user_input = int(input("Enter a number of file you want to delete: "))
 
-        if user_input not in range(1, len(file_handler.globals.files_list) + 1):
+        if user_input not in range(1, len(FileHandler.files_list()) + 1):
             raise IndexError
 
-        self.file_handler.set_path(file_handler.globals.files_list[user_input - 1])
+        self.file_handler.set_path(FileHandler.files_list()[user_input - 1])
         self.file_handler.delete_file()
-        file_handler.globals.files_list.pop(user_input - 1)
+        FileHandler.files_list().pop(user_input - 1)
 
     def _exit(self) -> None:
         self.running = False

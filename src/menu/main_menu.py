@@ -1,7 +1,6 @@
-import os
-
 from buffer import Buffer
-from file_handler.globals import DIRECTORY_FOR_FILES_PATH
+
+from file_handler import FileHandler
 
 
 class MainMenu:
@@ -10,8 +9,7 @@ class MainMenu:
         print("CipherMenu")
         print("==============================")  # int * "="
         print("Files:")
-        files = os.listdir(DIRECTORY_FOR_FILES_PATH)
-        for no, file in enumerate(files, start=1):
+        for no, file in enumerate(FileHandler.files_list(), start=1):
             print(f"{no}. {file}")
         print("---------------------------------------------")
         print("Your texts:")

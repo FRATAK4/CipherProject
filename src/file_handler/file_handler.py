@@ -35,3 +35,11 @@ class FileHandler:
     def load(self) -> list[dict[str, str]]:
         with open(self.path, "r") as json_file:
             return json.load(json_file)
+
+    @staticmethod
+    def files_list():
+        return [
+            file_name.removesuffix(".json")
+            for file_name in os.listdir(DIRECTORY_FOR_FILES_PATH)
+            if file_name != ".gitkeep"
+        ]
