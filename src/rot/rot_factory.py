@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from . import RotCipher
+from .rot_cipher import RotCipher
 
 
 class RotFactory(ABC):
