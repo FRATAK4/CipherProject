@@ -1,6 +1,6 @@
 import pytest
 
-from src.rot import Rot47Factory, Rot47Cipher
+from rot import Rot47Factory, Rot47Cipher
 
 
 @pytest.fixture

@@ -1,5 +1,6 @@
 import json
 import os
+from typing import cast
 
 from .consts import DIRECTORY_FOR_FILES_PATH
 from text import Text
@@ -34,10 +35,10 @@ class FileHandler:
 
     def load(self) -> list[dict[str, str]]:
         with open(self.path, "r") as json_file:
-            return json.load(json_file)
+            return cast(list[dict[str, str]], json.load(json_file))
 
     @staticmethod
-    def files_list():
+    def files_list() -> list[str]:
         return [
             file_name.removesuffix(".json")
             for file_name in os.listdir(DIRECTORY_FOR_FILES_PATH)

@@ -1,6 +1,6 @@
 import pytest
 
-from src.rot import Rot13Factory, Rot13Cipher
+from rot import Rot13Factory, Rot13Cipher
 
 
 @pytest.fixture

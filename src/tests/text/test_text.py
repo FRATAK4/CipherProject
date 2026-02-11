@@ -1,4 +1,4 @@
-from src.text import Text
+from text import Text
 
 
 class TestText:

@@ -2,9 +2,9 @@ from unittest.mock import patch
 
 import pytest
 
-from src.buffer import Buffer
-from src.text import Text
-from src.menu import MainMenu
+from buffer import Buffer
+from text import Text
+from menu import MainMenu
 
 
 @pytest.fixture

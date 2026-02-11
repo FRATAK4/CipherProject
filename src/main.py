@@ -3,7 +3,7 @@ from file_handler import FileHandler
 from manager.manager import Manager
 
 
-def main():
+def main() -> None:
     file_handler = FileHandler()
     buffer = Buffer()
     manager = Manager(file_handler, buffer)

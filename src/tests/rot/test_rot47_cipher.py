@@ -1,7 +1,7 @@
 import pytest
 
-from src.rot import Rot47Factory
-from src.text import Text
+from rot import Rot47Factory
+from text import Text
 
 
 @pytest.fixture

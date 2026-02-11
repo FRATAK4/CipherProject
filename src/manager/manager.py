@@ -35,7 +35,9 @@ class Manager:
             MainMenu.show_menu(self.buffer)
             try:
                 user_input = MainMenu.get_input()
-                self.functions_dict.get(user_input)()
+                self.functions_dict[user_input]()
+            except KeyError:
+                print("Function not working!")
             except ValueError:
                 print("Invalid input value!")
             except IndexError:
@@ -62,7 +64,7 @@ class Manager:
 
         text_object = None
 
-        cipher_factory = self.factories_dict.get(rot_type)()
+        cipher_factory = self.factories_dict[rot_type]()
         cipher = cipher_factory.create_cipher()
 
         match functionality:
@@ -72,6 +74,8 @@ class Manager:
             case "decrypt":
                 text_object = Text(text, rot_type, "encrypted")
                 cipher.decrypt(text_object)
+            case _:
+                raise ValueError
 
         self.buffer.add_texts([text_object])
 
@@ -94,7 +98,7 @@ class Manager:
 
         text_object = self.buffer.texts[user_input - 1]
 
-        cipher_factory = self.factories_dict.get(text_object.rot_type)()
+        cipher_factory = self.factories_dict[text_object.rot_type]()
         cipher = cipher_factory.create_cipher()
 
         match text_object.status:

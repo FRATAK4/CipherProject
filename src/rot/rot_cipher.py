@@ -4,9 +4,9 @@ from text import Text
 
 class RotCipher(ABC):
     @abstractmethod
-    def encrypt(self, text: Text) -> Text:
+    def encrypt(self, text: Text) -> None:
         pass
 
     @abstractmethod
-    def decrypt(self, text: Text) -> Text:
+    def decrypt(self, text: Text) -> None:
         pass
